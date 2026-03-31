@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grade Calculator</title>
+</head>
+<body>
+
+  <h1>Grade Calculator</h1>
+
+  <!-- Input -->
+  <input type="text" id="scoreInput" placeholder="Enter your score" />
+
+  <!-- Button -->
+  <button onclick="calculateGrade()">Get Grade</button>
+
+  <!-- Result -->
+  <p id="result"></p>
+
+  <script>
+    // Function to determine grade
+    function getGrade(score) {
+      if (score >= 90) {
+        return "A";
+      } else if (score >= 80) {
+        return "B";
+      } else if (score >= 70) {
+        return "C";
+      } else if (score >= 60) {
+        return "D";
+      } else {
+        return "F";
+      }
+    }
+
+    // Function called on button click
+    function calculateGrade() {
+      let input = document.getElementById("scoreInput").value;
+      let score = Number(input); // convert string to number
+
+      let grade = getGrade(score);
+
+      document.getElementById("result").textContent = "Your grade is: " + grade;
+    }
+  </script>
+
+</body>
+</html>
