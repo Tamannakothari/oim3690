@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Loop Challenges</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+    }
+    li {
+      margin: 4px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Loop Challenges</h2>
+
+  <h3>Numbers List</h3>
+  <ul id="number-list"></ul>
+
+  <h3>Results</h3>
+  <div id="results"></div>
+
+  <script>
+    const numbers = [4, -8, 15, -16, 23, 42, -3];
+
+    const list = document.querySelector('#number-list');
+    const results = document.querySelector('#results');
+
+    let sum = 0;
+    let max = numbers[0];
+    let positiveCount = 0;
+    let evens = [];
+
+    for (let i = 0; i < numbers.length; i++) {
+      const num = numbers[i];
+
+      // Build list
+      const li = document.createElement('li');
+      li.textContent = num;
+      list.appendChild(li);
+
+      // Sum
+      sum += num;
+
+      // Max
+      if (num > max) {
+        max = num;
+      }
+
+      // Count positives
+      if (num > 0) {
+        positiveCount++;
+      }
+
+      // Find evens
+      if (num % 2 === 0) {
+        evens.push(num);
+      }
+    }
+
+    // Display results
+    results.innerHTML = `
+      <p><strong>Total Sum:</strong> ${sum}</p>
+      <p><strong>Largest Number:</strong> ${max}</p>
+      <p><strong>Positive Count:</strong> ${positiveCount}</p>
+      <p><strong>Even Numbers:</strong> ${evens.join(', ')}</p>
+    `;
+  </script>
+
+</body>
+</html>
