@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shopping List</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+    }
+
+    input {
+      padding: 8px;
+      margin-right: 5px;
+    }
+
+    button {
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    li {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Shopping List</h2>
+
+  <input type="text" id="item-input" placeholder="Enter item">
+  <button id="add-btn">Add Item</button>
+
+  <ul id="list"></ul>
+
+  <script>
+    const items = ['Milk', 'Eggs', 'Bread'];
+
+    const list = document.querySelector('#list');
+    const input = document.querySelector('#item-input');
+    const button = document.querySelector('#add-btn');
+
+    function renderList() {
+      list.innerHTML = ''; // clear list
+
+      for (let i = 0; i < items.length; i++) {
+        const li = document.createElement('li');
+        li.textContent = items[i];
+        list.appendChild(li);
+      }
+    }
+
+    button.addEventListener('click', function() {
+      const newItem = input.value.trim();
+
+      if (newItem !== '') {
+        items.push(newItem);
+        renderList(); // re-render list
+        input.value = ''; // clear input
+      }
+    });
+
+    // initial render
+    renderList();
+  </script>
+
+</body>
+</html>
