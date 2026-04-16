@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Random Word Generator</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+    }
+
+    button {
+      padding: 10px 15px;
+      cursor: pointer;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Random Word Generator</h2>
+
+  <button id="btn">Get Random Word</button>
+
+  <p id="output"></p>
+  <ul id="word-list"></ul>
+
+  <script>
+    const button = document.querySelector('#btn');
+    const output = document.querySelector('#output');
+    const list = document.querySelector('#word-list');
+
+    button.addEventListener('click', async function() {
+      output.textContent = 'Loading...';
+      list.innerHTML = '';
+
+      try {
+        // BONUS: fetch 5 words
+        for (let i = 0; i < 5; i++) {
+          const response = await fetch('https://oim.108122.xyz/words/random');
+          
+          if (!response.ok) {
+            throw new Error('Network response failed');
+          }
+
+          const data = await response.json();
+
+          // If API returns { word: "example" }
+          const word = data.word;
+
+          // Show single word (latest)
+          output.textContent = word;
+
+          // Add to list
+          const li = document.createElement('li');
+          li.textContent = word;
+          list.appendChild(li);
+        }
+
+      } catch (error) {
+        output.textContent = 'Error fetching word 😢';
+        console.error(error);
+      }
+    });
+  </script>
+
+</body>
+</html>
