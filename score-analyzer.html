@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Score Analyzer</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+    }
+
+    .bar-container {
+      margin: 10px 0;
+    }
+
+    .bar {
+      height: 25px;
+      color: white;
+      padding-left: 8px;
+      line-height: 25px;
+      border-radius: 5px;
+    }
+
+    .green { background-color: green; }
+    .orange { background-color: orange; }
+    .red { background-color: red; }
+  </style>
+</head>
+<body>
+
+  <h2>Quiz Score Analyzer</h2>
+
+  <div id="summary"></div>
+  <h3>Scores</h3>
+  <div id="bars"></div>
+
+  <script>
+    const scores = [88, 72, 95, 63, 81, 56, 90];
+
+    const summary = document.querySelector('#summary');
+    const barsContainer = document.querySelector('#bars');
+
+    let total = 0;
+    let highest = scores[0];
+    let lowest = scores[0];
+    let passing = 0;
+
+    function getGrade(score) {
+      if (score >= 90) return 'A';
+      else if (score >= 80) return 'B';
+      else if (score >= 70) return 'C';
+      else if (score >= 60) return 'D';
+      else return 'F';
+    }
+
+    for (let i = 0; i < scores.length; i++) {
+      const score = scores[i];
+
+      total += score;
+
+      if (score > highest) highest = score;
+      if (score < lowest) lowest = score;
+
+      if (score >= 60) passing++;
+
+      // Create bar
+      const barContainer = document.createElement('div');
+      barContainer.classList.add('bar-container');
+
+      const bar = document.createElement('div');
+      bar.classList.add('bar');
+
+      // Width based on score
+      bar.style.width = score + '%';
+
+      const grade = getGrade(score);
+
+      // Color coding
+      if (grade === 'A' || grade === 'B') {
+        bar.classList.add('green');
+      } else if (grade === 'C' || grade === 'D') {
+        bar.classList.add('orange');
+      } else {
+        bar.classList.add('red');
+      }
+
+      bar.textContent = `${score} (${grade})`;
+
+      barContainer.appendChild(bar);
+      barsContainer.appendChild(barContainer);
+    }
+
+    const average = (total / scores.length).toFixed(1);
+
+    summary.innerHTML = `
+      <p><strong>Total Scores:</strong> ${scores.length}</p>
+      <p><strong>Average:</strong> ${average}</p>
+      <p><strong>Highest:</strong> ${highest}</p>
+      <p><strong>Lowest:</strong> ${lowest}</p>
+      <p><strong>Passing (>=60):</strong> ${passing}</p>
+    `;
+  </script>
+
+</body>
+</html>
